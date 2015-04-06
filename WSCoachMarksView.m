@@ -198,6 +198,19 @@ static const BOOL kEnableSkipButton = YES;
         y = markRect.origin.y - self.lblSpacing - self.lblCaption.frame.size.height;
     }
     CGFloat x = floorf((self.bounds.size.width - self.lblCaption.frame.size.width) / 2.0f);
+    
+    if (y < 0)
+    {
+        y = (self.bounds.size.height - self.lblSpacing - self.lblCaption.frame.size.height) / 2;
+        if (CGRectGetMaxX(markRect) < self.bounds.size.width / 2)
+        {
+            x = CGRectGetMaxX(markRect) + floorf((self.bounds.size.width - self.lblCaption.frame.size.width - CGRectGetWidth(markRect)) / 2.0f);
+        }
+        else
+        {
+            x = (CGRectGetMinX(markRect) - self.lblCaption.frame.size.width) / 2.0f;
+        }
+    }
 
     // Animate the caption label
     self.lblCaption.frame = (CGRect){{x, y}, self.lblCaption.frame.size};
